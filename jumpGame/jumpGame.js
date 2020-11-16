@@ -12,6 +12,27 @@
 // Output: false
 // Explanation: You will always arrive at index 3 no matter what. Its maximum jump length is 0, which makes it impossible to reach the last index.
 
-var canJump = function(nums) {
+var zeroChecker = (nums, zero) => {
+  for (let i = zero - 1; i >= 0; i--) {
+    if (nums[i] > zero - i) {
+      return i;
+    }
+  }
+}
 
+var canJump = function(nums) {
+  if (nums.length <= 1) {
+      return true;
+  }
+  for (let index = nums.length - 2; index >= 0; index--) {
+    if (nums[index] === 0) {
+      newIndex = zeroChecker(nums, index);
+      if (newIndex !== undefined) {
+        index = newIndex;
+      } else {
+        return false
+      }
+    }
+  }
+  return true;
 };
